@@ -1,0 +1,21 @@
+{
+	"folders": [
+		{
+			"path": "../../../../Arduino/flight_comp"
+		},
+		{
+			"name": "flight_computer",
+			"path": ".."
+		},
+		{
+			"name": "Launch Controller",
+			"path": "../../Launch Controller"
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"cmath": "cpp",
+			"complex": "cpp"
+		}
+	}
+}
