@@ -118,7 +118,7 @@ void CalibrateSensors() {
 // ----* Sensors *-----
 ///@brief Gathers altitude, temperature data. 
 void BMPJOB() {
-  alt = bmp.readAltitude(1013.25) - initAlt; 
+  alt = bmp.readAltitude(1013.25) - initalt; 
   currAlt = alt;
 }
 
