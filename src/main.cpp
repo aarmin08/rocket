@@ -26,13 +26,9 @@ Adafruit_BMP280 bmp;
 float alt; 
 float gx, gy, gz, prevax=0, prevay=0, prevaz=0;
 float noise_controlled_ax, noise_controlled_ay, noise_controlled_az; 
-
 float r, p; 
-
 int time; 
-
 bool checkforlaunch = true; 
-
 float initalt, maxAlt, currAlt;
 
 File dataFile, eventFile; 
@@ -48,11 +44,9 @@ void writeDataToFile() {
   } else {
     tone(BUZZID, 500, 3); 
   }
-
   if (currAlt >= maxAlt) {
     maxAlt = currAlt; 
   }
-
   else if (currAlt <=maxAlt) {
     dataFile.close(); 
     eventFile = SD.open("EVENT.TXT", FILE_WRITE); 
@@ -85,9 +79,7 @@ void loop() {
   analogWrite(BUZZID, 200); //TODO: Open this later in flight 
   MPUJOB(); 
   BMPJOB();
- 
-    writeDataToFile();
-
+  writeDataToFile();
   time = millis(); 
   delay(100); 
 }
@@ -126,7 +118,7 @@ void CalibrateSensors() {
 // ----* Sensors *-----
 ///@brief Gathers altitude, temperature data. 
 void BMPJOB() {
-  alt = bmp.readAltitude(1013.25); 
+  alt = bmp.readAltitude(1013.25) - initAlt; 
   currAlt = alt;
 }
 
@@ -144,7 +136,6 @@ void MPUJOB() {
   r = alpha * (gx + tanf(p) * (sin(r) * gy + cosf(r) * gz) ) + (1.0f - alpha) * (r + (0.1f/ 1000.0f) * (gx + tanf(p) * (sin(r) * gy + cosf(r) * gz) )); 
   p = alpha * (cosf(r) * gy - sinf(r) * gz) + (1.0f - alpha) * (p +(0.1f / 1000.0f) * (cosf(r) * gy - sinf(r) * gz)); 
   //only open when rocket is moving
-
   prevax = noise_controlled_ax; 
   prevay = noise_controlled_ay; 
   prevaz = noise_controlled_az;
